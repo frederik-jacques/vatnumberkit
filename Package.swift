@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "VatNumberKit",
+    platforms: [
+            .iOS(.v14),
+            .macOS(.v12),
+        ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -23,6 +27,9 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "VatNumberKitTests",
-            dependencies: ["VatNumberKit"]),
-    ]
+            dependencies: ["VatNumberKit"],
+            exclude: ["Services/Mocks/"]
+        ),
+    ],
+    swiftLanguageVersions: [.v5]
 )

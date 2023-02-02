@@ -1,0 +1,21 @@
+{
+  "isValid": true,
+  "requestDate": "2023-02-02T11:29:37.555Z",
+  "userError": "VALID",
+  "name": "Comm.V the-nerd",
+  "address": "Peisegemstraat 98\n1785 Merchtem",
+  "requestIdentifier": "",
+  "vatNumber": "0651634023",
+  "viesApproximate": {
+    "name": "---",
+    "street": "---",
+    "postalCode": "---",
+    "city": "---",
+    "companyType": "---",
+    "matchName": 3,
+    "matchStreet": 3,
+    "matchPostalCode": 3,
+    "matchCity": 3,
+    "matchCompanyType": 3
+  }
+}
