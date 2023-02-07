@@ -50,6 +50,22 @@ final class BelgiumVatNumberTests: XCTestCase {
         XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
+    func testValidBelgianVatNumberWithDotsFormatting() throws {
+        let expectedValidationResult = true
+        
+        let sut = VatNumberKit.validateFormat(rawVatNumber: "BE 0651.634.023")
+        XCTAssertNotNil(sut)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
+    }
+    
+    func testValidBelgianVatNumberWithSpacesFormatting() throws {
+        let expectedValidationResult = true
+        
+        let sut = VatNumberKit.validateFormat(rawVatNumber: "BE 0651 634 023")
+        XCTAssertNotNil(sut)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
+    }
+    
     func testInvalidBelgianVatNumberWithNotEnoughNumbers() throws {
         let expectedValidationResult = false
         

@@ -67,8 +67,7 @@ public extension VatNumberKit {
                 // - BE0123456789
             case .belgium:
                 return [
-                    "(BE)0?(\\d{9})",
-                    "(BE)(\\d{10})"
+                    "(BE)\\s?(0?\\d{3}).?(\\d{3}).?(0?\\d{3})",
                 ]
                 
             case .bulgaria:
