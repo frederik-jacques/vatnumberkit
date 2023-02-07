@@ -19,17 +19,17 @@ final class BelgiumChecksumValidatorTests: XCTestCase {
     }
 
     func testValidBelgianVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BE0651634023")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BE0651634023")
         XCTAssertTrue(sut)
     }
     
     func testInvalidBelgianVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BE04021")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BE04021")
         XCTAssertFalse(sut)
     }
     
     func testInvalidBelgianVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BE0651634021")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BE0651634021")
         XCTAssertFalse(sut)
     }
 

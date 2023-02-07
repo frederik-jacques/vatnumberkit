@@ -12,7 +12,7 @@ extension VatNumberKit {
     struct ChecksumValidator {
         
         public static func validate(rawVatNumber: String?) -> Bool {
-            guard let vatNumber = VatNumber(vatNumber: rawVatNumber) else { return false }
+            guard let vatNumber = VatNumber(rawVatNumber: rawVatNumber) else { return false }
             
             switch vatNumber.country {
             case .austria:                

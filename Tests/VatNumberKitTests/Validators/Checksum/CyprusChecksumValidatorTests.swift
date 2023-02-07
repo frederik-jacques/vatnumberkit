@@ -19,17 +19,17 @@ final class CyprusChecksumValidatorTests: XCTestCase {
     }
 
     func testValidCyprusVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CY00532445O")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CY00532445O")
         XCTAssertTrue(sut)
     }
     
     func testInvalidCyprusVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CY00532442A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CY00532442A")
         XCTAssertFalse(sut)
     }
     
     func testInvalidCyprusVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CY0042A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CY0042A")
         XCTAssertFalse(sut)
     }
 

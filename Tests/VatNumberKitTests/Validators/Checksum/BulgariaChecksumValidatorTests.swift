@@ -19,47 +19,47 @@ final class BulgariaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidBulgarianBusinessVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG175074752")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG175074752")
         XCTAssertTrue(sut)
     }
     
     func testValidBulgarianBusinessVatNumberWithSecondWeightedSum() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG301004503")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG301004503")
         XCTAssertTrue(sut)
     }
     
     func testValidBulgarianBusinessVatNumberWithSecondWeightedSum2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG131272009")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG131272009")
         XCTAssertTrue(sut)
     }
     
     func testInvalidBulgarianBusinessVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG301004502")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG301004502")
         XCTAssertFalse(sut)
     }
     
     func testInvalidBulgarianVatWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG30502")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG30502")
         XCTAssertFalse(sut)
     }
 
     func testValidBulgarianNaturalPersonVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG7501020018")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG7501020018")
         XCTAssertTrue(sut)
     }
     
     func testValidBulgarianNaturalPersonVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG8001010008")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG8001010008")
         XCTAssertTrue(sut)
     }
     
     func testValidBulgarianNaturalPersonVatNumber3() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG8032056031")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG8032056031")
         XCTAssertTrue(sut)
     }
     
     func testValidBulgarianForeignerVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "BG7111042925")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "BG7111042925")
         XCTAssertTrue(sut)
     }
     

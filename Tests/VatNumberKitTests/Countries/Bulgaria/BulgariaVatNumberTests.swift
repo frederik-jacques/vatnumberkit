@@ -23,7 +23,7 @@ final class BulgariaVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .bulgaria, number: "0123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidBulgarianVatNumberWith10Digits() throws {
@@ -31,7 +31,7 @@ final class BulgariaVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .bulgaria, number: "0123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidBulgarianVatNumberWithTooManyDigits() throws {
@@ -39,7 +39,7 @@ final class BulgariaVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .bulgaria, number: "01234567891")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidBulgarianVatNumberWithNotEnoughDigits() throws {
@@ -47,7 +47,7 @@ final class BulgariaVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .bulgaria, number: "01234567")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
 }

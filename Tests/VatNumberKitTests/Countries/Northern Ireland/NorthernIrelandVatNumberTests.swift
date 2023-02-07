@@ -23,7 +23,7 @@ final class NorthernIrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .northernIreland, number: "123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidNorthernIrelandVatNumberWithNotEnoughDigits() throws {
@@ -31,7 +31,7 @@ final class NorthernIrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .northernIreland, number: "12345678")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidNorthernIrelandVatNumberWithTooManyDigits() throws {
@@ -39,7 +39,7 @@ final class NorthernIrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .northernIreland, number: "1234567890")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
 }

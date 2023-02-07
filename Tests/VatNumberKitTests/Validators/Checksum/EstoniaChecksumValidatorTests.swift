@@ -19,17 +19,17 @@ final class EstoniaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidEstoniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EE100207415")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EE100207415")
         XCTAssertTrue(sut)
     }
     
     func testInvalidEstoniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EE1002074")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EE1002074")
         XCTAssertFalse(sut)
     }
     
     func testInvalidEstoniaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EE846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EE846A")
         XCTAssertFalse(sut)
     }
     

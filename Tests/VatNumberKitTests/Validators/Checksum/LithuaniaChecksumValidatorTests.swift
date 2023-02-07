@@ -19,32 +19,32 @@ final class LithuaniaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidLithuaniaTemporaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT210061371310")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT210061371310")
         XCTAssertTrue(sut)
     }
     
     func testValidLithuaniaTemporaryVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT290061371314")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT290061371314")
         XCTAssertTrue(sut)
     }
     
     func testValidLithuaniaLegalVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT213179412")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT213179412")
         XCTAssertTrue(sut)
     }
     
     func testValidLithuaniaLegalVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT208640716")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT208640716")
         XCTAssertTrue(sut)
     }
     
     func testInvalidLithuaniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT213179422")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT213179422")
         XCTAssertFalse(sut)
     }
     
     func testInvalidLithuaniaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LT846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LT846A")
         XCTAssertFalse(sut)
     }
 

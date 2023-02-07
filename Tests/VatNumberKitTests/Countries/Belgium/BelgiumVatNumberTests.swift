@@ -23,15 +23,15 @@ final class BelgiumVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .belgium, number: "0123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidBelgianVatNumberWith9Digits() throws {
-        let expectedValidationResult = false
+        let expectedValidationResult = true
         
         let sut = VatNumberKit.validateFormat(country: .belgium, number: "123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidBelgianVatNumberWithLettersInIt() throws {
@@ -39,7 +39,7 @@ final class BelgiumVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .belgium, number: "ABC123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidBelgianVatNumberWithTooMuchNumbers() throws {
@@ -47,7 +47,7 @@ final class BelgiumVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .belgium, number: "123456789123")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidBelgianVatNumberWithNotEnoughNumbers() throws {
@@ -55,7 +55,7 @@ final class BelgiumVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .belgium, number: "1234")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
 }

@@ -9,7 +9,7 @@ import Foundation
 
 public extension VatNumberKit {
     
-    enum Country: String, CaseIterable {
+    enum Country: String, CaseIterable, Hashable {
         
         case austria = "AT"
         case belgium = "BE"
@@ -66,7 +66,10 @@ public extension VatNumberKit {
                 // - BE123456789
                 // - BE0123456789
             case .belgium:
-                return ["(BE)(\\d{10})"]
+                return [
+                    "(BE)0?(\\d{9})",
+                    "(BE)(\\d{10})"
+                ]
                 
             case .bulgaria:
                 // 'BG' + 9–10 digits

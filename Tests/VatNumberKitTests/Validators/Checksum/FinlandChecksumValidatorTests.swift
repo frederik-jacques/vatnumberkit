@@ -19,22 +19,22 @@ final class FinlandChecksumValidatorTests: XCTestCase {
     }
 
     func testValidFinlandVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FI09853608")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FI09853608")
         XCTAssertTrue(sut)
     }
     
     func testValidFinlandVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FI01089940")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FI01089940")
         XCTAssertTrue(sut)
     }
     
     func testInvalidFinlandVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FI09853607")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FI09853607")
         XCTAssertFalse(sut)
     }
     
     func testInvalidFinlandVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FI846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FI846A")
         XCTAssertFalse(sut)
     }
 

@@ -9,7 +9,7 @@ import Foundation
 
 public extension VatNumberKit {
     
-    struct VatNumber: Equatable {
+    struct VatNumber: Hashable {
         /// The country part of  the VAT number
         public let country: Country
         
@@ -19,22 +19,11 @@ public extension VatNumberKit {
         /// The full VAT number (country + number)
         public var fullVatNumber: String { return "\(country.rawValue)\(number)" }
         
-        /// Create a VatNumber instance based on a country & the number. If the number is nil or empty, nil is returned.
-        /// - Parameters:
-        ///   - country: The country
-        ///   - number: The number
-        init?(country: Country, number: String?) {
-            guard let number = number?.trimmingCharacters(in: .whitespacesAndNewlines).withoutDiacritics.alphanumeric, !number.isEmpty else { return nil }
-            
-            self.country = country
-            self.number = number
-        }
-                
-        /// Create a VatNumber instance based on a raw Vat number string.
-        /// - Parameter vatNumber: A raw VAT number
-        init?(vatNumber: String?) {
+        /// Create a VatNumber instance based on a raw VAT number string.
+        /// - Parameter rawVatNumber: The raw VAT number (spaces, special characters will be removed)
+        init?(rawVatNumber: String?) {
             // Check that the VAT number is not nil, empty and has a country code.
-            guard let vatNumber = vatNumber?.trimmingCharacters(in: .whitespacesAndNewlines).withoutDiacritics.alphanumeric,
+            guard let vatNumber = rawVatNumber?.trimmingCharacters(in: .whitespacesAndNewlines).withoutDiacritics.alphanumeric,
                   !vatNumber.isEmpty,
                   let country = Country.create(from: vatNumber)
             else { return nil }
@@ -55,7 +44,8 @@ public extension VatNumberKit {
                 updatedNumber = number
             }
             
-            self.init(country: country, number: updatedNumber)
+            self.country = country
+            self.number = updatedNumber
         }
         
     }

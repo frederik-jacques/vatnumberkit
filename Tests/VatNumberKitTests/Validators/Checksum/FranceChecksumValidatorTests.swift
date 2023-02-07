@@ -19,32 +19,32 @@ final class FranceChecksumValidatorTests: XCTestCase {
     }
 
     func testValidFranceVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FR00300076965")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FR00300076965")
         XCTAssertTrue(sut)
     }
     
     func testValidFranceVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FRK7399859412")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FRK7399859412")
         XCTAssertTrue(sut)
     }
     
     func testValidFranceVatNumber3() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FR4Z123456782")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FR4Z123456782")
         XCTAssertTrue(sut)
     }
     
     func testValidFranceVatNumber4() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FR83404833048")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FR83404833048")
         XCTAssertTrue(sut)
     }
         
     func testInvalidFranceVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FR0030007696A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FR0030007696A")
         XCTAssertFalse(sut)
     }
     
     func testInvalidFranceVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "FR4585A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "FR4585A")
         XCTAssertFalse(sut)
     }
 

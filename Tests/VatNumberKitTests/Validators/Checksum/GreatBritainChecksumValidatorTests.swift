@@ -19,32 +19,32 @@ final class GreatBritainChecksumValidatorTests: XCTestCase {
     }
 
     func testValidGreatBritainStandardVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GB434031494")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GB434031494")
         XCTAssertTrue(sut)
     }
     
     func testValidGreatBritainBranchVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GB242338087388")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GB242338087388")
         XCTAssertTrue(sut)
     }
     
     func testValidGreatBritainGovernmentVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GBGD001")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GBGD001")
         XCTAssertTrue(sut)
     }
     
     func testValidGreatBritainHealthAuthorityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GBHA500")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GBHA500")
         XCTAssertTrue(sut)
     }
     
     func testInvalidGreatBritainVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GB434031491")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GB434031491")
         XCTAssertFalse(sut)
     }
     
     func testInvalidGreatBritainVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "GB846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "GB846A")
         XCTAssertFalse(sut)
     }
 

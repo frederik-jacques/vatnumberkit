@@ -19,27 +19,27 @@ final class NorthernIrelandChecksumValidatorTests: XCTestCase {
     }
 
     func testValidNorthernIrelandNormalVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "XI925901618")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "XI925901618")
         XCTAssertTrue(sut)
     }
     
     func testValidNorthernIrelandGovernmentVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "XIGD001")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "XIGD001")
         XCTAssertTrue(sut)
     }
     
     func testValidNorthernIrelandHealthAuthorityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "XIHA500")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "XIHA500")
         XCTAssertTrue(sut)
     }
     
     func testInvalidNorthernIrelandVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "XI925901612")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "XI925901612")
         XCTAssertFalse(sut)
     }
     
     func testInvalidNorthernIrelandVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "XI846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "XI846A")
         XCTAssertFalse(sut)
     }
 

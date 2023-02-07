@@ -19,17 +19,17 @@ final class AustriaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidAustriaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ATU10223006")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ATU10223006")
         XCTAssertTrue(sut)
     }
     
     func testInvalidAustriaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ATU1022300")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ATU1022300")
         XCTAssertFalse(sut)
     }
     
     func testInvalidAustriaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "AT0042A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "AT0042A")
         XCTAssertFalse(sut)
     }
 

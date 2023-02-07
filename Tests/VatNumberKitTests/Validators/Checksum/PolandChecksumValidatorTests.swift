@@ -20,17 +20,17 @@ final class PolandChecksumValidatorTests: XCTestCase {
     }
 
     func testValidPolandTemporaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PL5260001246")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PL5260001246")
         XCTAssertTrue(sut)
     }
     
     func testInvalidPolandVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PL12342678090")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PL12342678090")
         XCTAssertFalse(sut)
     }
     
     func testInvalidPolandVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PL846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PL846A")
         XCTAssertFalse(sut)
     }
 

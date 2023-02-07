@@ -19,16 +19,16 @@ final class IrishVatNumberConverterTests: XCTestCase {
     }
 
     func testNewIrishVatNumberReturnsTheSameVatNumber() throws {
-        let expectedResult = VatNumberKit.VatNumber(country: .ireland, number: "6388047V")
+        let expectedResult = VatNumberKit.VatNumber(rawVatNumber: "IE6388047V")
         
-        let sut = IrishVatNumberConverter.convert(vatNumber: VatNumberKit.VatNumber(country: .ireland, number: "6388047V")!)
+        let sut = IrishVatNumberConverter.convert(vatNumber: VatNumberKit.VatNumber(rawVatNumber: "IE6388047V")!)
         XCTAssertEqual(sut, expectedResult)
     }
     
     func testOldIrishVatNumberIsConverted() throws {
-        let expectedResult = VatNumberKit.VatNumber(country: .ireland, number: "0797398I")
+        let expectedResult = VatNumberKit.VatNumber(rawVatNumber: "IE0797398I")
         
-        let sut = IrishVatNumberConverter.convert(vatNumber: VatNumberKit.VatNumber(country: .ireland, number: "8D79739I")!)
+        let sut = IrishVatNumberConverter.convert(vatNumber: VatNumberKit.VatNumber(rawVatNumber: "IE8D79739I")!)
         XCTAssertEqual(sut, expectedResult)
     }
 

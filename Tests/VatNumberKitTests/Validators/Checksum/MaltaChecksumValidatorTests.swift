@@ -19,17 +19,17 @@ final class MaltaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidMaltaTemporaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "MT15121333")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "MT15121333")
         XCTAssertTrue(sut)
     }
     
     func testInvalidMaltaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "MT15121332")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "MT15121332")
         XCTAssertFalse(sut)
     }
     
     func testInvalidMaltaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "MT846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "MT846A")
         XCTAssertFalse(sut)
     }
 

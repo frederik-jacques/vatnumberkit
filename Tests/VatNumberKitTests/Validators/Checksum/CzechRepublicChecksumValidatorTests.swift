@@ -19,32 +19,32 @@ final class CzechRepublicChecksumValidatorTests: XCTestCase {
     }
     
     func testValidCzechRepublicBusinessVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ46505334")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ46505334")
         XCTAssertTrue(sut)
     }
     
     func testValidCzechRepublicIndividual10DigitsVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ7103192745")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ7103192745")
         XCTAssertTrue(sut)
     }
     
     func testValidCzechRepublicIndividual9DigitsSpecialCaseVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ640903926")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ640903926")
         XCTAssertTrue(sut)
     }
     
     func testValidCzechRepublicIndividual9DigitsVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ395601439")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ395601439")
         XCTAssertTrue(sut)
     }
     
     func testInvalidCzechRepublicVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ00532442")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ00532442")
         XCTAssertFalse(sut)
     }
     
     func testInvalidCzechRepublicVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "CZ0042A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "CZ0042A")
         XCTAssertFalse(sut)
     }
     

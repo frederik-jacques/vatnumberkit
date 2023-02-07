@@ -19,22 +19,22 @@ final class RomaniaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidRomaniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "RO0011198699")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "RO0011198699")
         XCTAssertTrue(sut)
     }
     
     func testValidRomaniaVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "RO0014186770")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "RO0014186770")
         XCTAssertTrue(sut)
     }
     
     func testInvalidRomaniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "RO11198698")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "RO11198698")
         XCTAssertFalse(sut)
     }
     
     func testInvalidRomaniaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "RO846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "RO846A")
         XCTAssertFalse(sut)
     }
 

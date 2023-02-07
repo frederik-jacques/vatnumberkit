@@ -19,17 +19,17 @@ final class GreeceChecksumValidatorTests: XCTestCase {
     }
     
     func testValidGreeceVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EL040127797")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EL040127797")
         XCTAssertTrue(sut)
     }
     
     func testInvalidGreeceVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EL040127796")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EL040127796")
         XCTAssertFalse(sut)
     }
     
     func testInvalidGreeceVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EL846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EL846A")
         XCTAssertFalse(sut)
     }
 

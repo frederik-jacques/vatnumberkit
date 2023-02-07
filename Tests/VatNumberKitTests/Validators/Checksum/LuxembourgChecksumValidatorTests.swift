@@ -19,17 +19,17 @@ final class LuxembourgChecksumValidatorTests: XCTestCase {
     }
 
     func testValidLuxembourgTemporaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LU10000356")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LU10000356")
         XCTAssertTrue(sut)
     }
     
     func testInvalidLuxembourgVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LU10000357")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LU10000357")
         XCTAssertFalse(sut)
     }
     
     func testInvalidLuxembourgVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LU846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LU846A")
         XCTAssertFalse(sut)
     }
 

@@ -19,17 +19,17 @@ final class PortugalChecksumValidatorTests: XCTestCase {
     }
 
     func testValidPolandTemporaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PT502757191")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PT502757191")
         XCTAssertTrue(sut)
     }
     
     func testInvalidPolandVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PT502757852")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PT502757852")
         XCTAssertFalse(sut)
     }
     
     func testInvalidPolandVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "PT846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "PT846A")
         XCTAssertFalse(sut)
     }
 

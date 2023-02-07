@@ -19,22 +19,22 @@ final class SloveniaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidSloveniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "SI15012557")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "SI15012557")
         XCTAssertTrue(sut)
     }
     
     func testValidSloveniaVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "SI95796550")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "SI95796550")
         XCTAssertTrue(sut)
     }
     
     func testInvalidSloveniaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "SI15012556")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "SI15012556")
         XCTAssertFalse(sut)
     }
     
     func testInvalidSloveniaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "SI846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "SI846A")
         XCTAssertFalse(sut)
     }
 

@@ -23,7 +23,7 @@ final class CyprusVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .cyprus, number: "12345678X")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
     func testInvalidCyprianVatNumber() throws {
@@ -31,7 +31,7 @@ final class CyprusVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .cyprus, number: "123456781")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
 }

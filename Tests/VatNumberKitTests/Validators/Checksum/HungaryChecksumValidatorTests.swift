@@ -19,22 +19,22 @@ final class HungarChecksumValidatorTests: XCTestCase {
     }
 
     func testValidHungaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "HU21376414")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "HU21376414")
         XCTAssertTrue(sut)
     }
     
     func testValidHungaryVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "HU10597190")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "HU10597190")
         XCTAssertTrue(sut)
     }
     
     func testInvalidHungaryVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "HU10597191")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "HU10597191")
         XCTAssertFalse(sut)
     }
     
     func testInvalidHungaryVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "HU846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "HU846A")
         XCTAssertFalse(sut)
     }
 

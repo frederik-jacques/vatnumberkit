@@ -55,12 +55,13 @@ If you prefer not to use Swift Package Manager, you can integrate VatNumberKit i
 
 ### Validate the VAT number format
 
-Use the static method `VatNumberKit.validateFormat(vatNumber:)` to check if the VAT number format is valid.
+Use the static method `VatNumberKit.validateFormat(vatNumber:)` to check if the VAT number format (based on regexes) is valid.
 
 The result of this call returns a `VatNumberKit.ValidationOutput` object which has the following properties.
 
-* vatNumber: A `VatNumber` object (with country information)
-* isValid: Is the format valid
+* `rawVatNumber`: The original VAT number
+* `vatNumber`: A `VatNumber` object (country & number seperated)
+* `isValid`: Is the format valid
 
 #### Example
 
@@ -83,7 +84,7 @@ class ViewController: UIViewController {
 
 ### Validate the VAT checksum
 
-Use the static method `VatNumberKit.validateChecksum(vatNumber:)` to check if the checksum for the given VAT number is valid.
+Use the static method `VatNumberKit.validateChecksum(rawVatNumber:)` to check if the checksum for the given VAT number is valid.
 
 The result of this call returns a `Boolean`, indicating if the checksum is correct.
 
@@ -97,7 +98,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if VatNumberKit.validateChecksum(vatNumber: "BE0651634023"){
+        if VatNumberKit.validateChecksum(rawVatNumber: "BE0651634023"){
             print("The VAT number has a valid checksum")
         }
         
@@ -105,7 +106,6 @@ class ViewController: UIViewController {
 }
 
 ```
-
 
 ### Online VAT number validation
 VatNumberKit also allows you to validate a VAT number against 2 online services.
@@ -162,6 +162,30 @@ VatNumberKit.validateOnline(vatNumber: "GB835145337") { result in
     }
 ```
 
+### Search VAT numbers within a string
+
+Use the static method `VatNumberKit.searchVatNumbersInText(:applyChecksumValidation:)` to find VAT numbers in a text.
+
+This method returns a Set of `VatNumberKit.ValidationOutput` structs.
+
+#### Example
+
+```swift
+import VatNumberKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let validationObjects = VatNumberKit.searchVatNumbersInText(text: "This is a VAT number that is BE0651634023 somewhere in the text. \n Apple's Belgian VAT number is BE0842936235")
+        // Will contain 2 VatNumberKit.ValidationOutput structs.
+        
+    }
+}
+
+```
+
 ## Supported Countries
 
 | Country          	| Offline format validation (regex) 	| Offline checksum validation 	| Online validation 	|
@@ -202,6 +226,11 @@ Feel free to open a PR to add other countries!
 ## Credits
 
 - Frederik Jacques ([@thenerd_be](https://twitter.com/thenerd_be))
+
+Sources used to find more information about the checksums, as every country seems to have forgotten to document how it is being calculated :)
+- https://github.com/DragonBe/vies
+- https://gist.github.com/svschannak/e79892f4fbc56df15bdb5496d0e67b85
+- https://github.com/arthurdejong/python-stdnum
 
 
 ## License

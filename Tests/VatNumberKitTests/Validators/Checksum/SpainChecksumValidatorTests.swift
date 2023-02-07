@@ -19,27 +19,27 @@ final class SpainChecksumValidatorTests: XCTestCase {
     }
 
     func testValidSpainJuridicalEntityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ESA0011012B")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ESA0011012B")
         XCTAssertTrue(sut)
     }
     
     func testValidSpainNationalEntityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ESA78304516")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ESA78304516")
         XCTAssertTrue(sut)
     }
     
     func testValidSpainPhysicalPersonVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ESX5910266W")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ESX5910266W")
         XCTAssertTrue(sut)
     }
     
     func testInvalidSpainVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ESK0011012B")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ESK0011012B")
         XCTAssertFalse(sut)
     }
     
     func testInvalidSpainVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "ES846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "ES846A")
         XCTAssertFalse(sut)
     }
 

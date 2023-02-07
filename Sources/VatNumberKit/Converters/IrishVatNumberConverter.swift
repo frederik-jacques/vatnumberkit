@@ -30,8 +30,8 @@ struct IrishVatNumberConverter {
         let firstDigit = String(originalNumber.prefix(1))
         let lastCharacter = String(originalNumber.suffix(1))
         
-        let updatedNumber = "0" + fiveDigits + firstDigit + lastCharacter
-        return VatNumberKit.VatNumber(country: .ireland, number: updatedNumber)
+        let updatedNumber = "IE0" + fiveDigits + firstDigit + lastCharacter
+        return VatNumberKit.VatNumber(rawVatNumber: updatedNumber)
     }
     
 }

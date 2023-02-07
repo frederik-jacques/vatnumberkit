@@ -19,22 +19,22 @@ final class NetherlandsChecksumValidatorTests: XCTestCase {
     }
 
     func testValidNetherlandsVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "NL010000446B01")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "NL010000446B01")
         XCTAssertTrue(sut)
     }
     
     func testValidNetherlandsVatNumber2() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "NL002342672B42")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "NL002342672B42")
         XCTAssertTrue(sut)
     }
     
     func testInvalidNetherlandsVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "NL010000436B01")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "NL010000436B01")
         XCTAssertFalse(sut)
     }
     
     func testInvalidNetherlandsVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "NL846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "NL846A")
         XCTAssertFalse(sut)
     }
 

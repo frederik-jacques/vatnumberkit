@@ -23,7 +23,7 @@ final class IrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .ireland, number: "1234567A")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidIrishVatNumberWith2AlphabeticalCharactersAsSuffix() throws {
@@ -31,7 +31,7 @@ final class IrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .ireland, number: "7234567AH")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidIrishVatNumberWithAlphabeticalCharacterAtPosition2AndAtTheEnd() throws {
@@ -39,7 +39,7 @@ final class IrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .ireland, number: "7A23456A")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidIrishVatNumberWithNotEnoughDigits() throws {
@@ -47,7 +47,7 @@ final class IrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .ireland, number: "1234567")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidIrishVatNumberWithTooManyDigits() throws {
@@ -55,7 +55,7 @@ final class IrelandVatNumberTests: XCTestCase {
         
         let sut = VatNumberKit.validateFormat(country: .ireland, number: "123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
 }

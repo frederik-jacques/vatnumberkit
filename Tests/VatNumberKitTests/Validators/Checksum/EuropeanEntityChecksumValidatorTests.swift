@@ -19,17 +19,17 @@ final class EuropeanEntityChecksumValidatorTests: XCTestCase {
     }
 
     func testValidEuropeanEntityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EU123456789")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EU123456789")
         XCTAssertTrue(sut)
     }
     
     func testInvalidEuropeanEntityVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EU2358243")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EU2358243")
         XCTAssertFalse(sut)
     }
     
     func testInvalidEuropeanEntityVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "EU846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "EU846A")
         XCTAssertFalse(sut)
     }
 

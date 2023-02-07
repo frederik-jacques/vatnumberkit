@@ -19,17 +19,17 @@ final class LatviaChecksumValidatorTests: XCTestCase {
     }
 
     func testValidLatviaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LV40003009497")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LV40003009497")
         XCTAssertTrue(sut)
     }
     
     func testInvalidLatviaVatNumber() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LV40013009497")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LV40013009497")
         XCTAssertFalse(sut)
     }
     
     func testInvalidLatviaVatNumberWithIncorrectFormat() throws {
-        let sut = VatNumberKit.validateChecksum(vatNumber: "LV846A")
+        let sut = VatNumberKit.validateChecksum(rawVatNumber: "LV846A")
         XCTAssertFalse(sut)
     }
 

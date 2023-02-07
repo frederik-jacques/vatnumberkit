@@ -32,7 +32,7 @@ final class ValidationServiceTests: XCTestCase {
             return (HTTPURLResponse(), data)
         }
         
-        let vatNumber = VatNumberKit.VatNumber(country: .belgium, number: "0651634023")!
+        let vatNumber = VatNumberKit.VatNumber(rawVatNumber: "BE0651634023")!
         
         mockService = VatNumberKit.ValidationService(urlSession: urlSession)
         let expectation = XCTestExpectation(description: "I expect the European validation service to return a valid valid VAT number.")
@@ -58,7 +58,7 @@ final class ValidationServiceTests: XCTestCase {
             return (HTTPURLResponse(), data)
         }
         
-        let vatNumber = VatNumberKit.VatNumber(country: .belgium, number: "0651634022")!
+        let vatNumber = VatNumberKit.VatNumber(rawVatNumber: "BE0651634022")!
         
         mockService = VatNumberKit.ValidationService(urlSession: urlSession)
         let expectation = XCTestExpectation(description: "I expect the European validation service to return an invalid result for an invalid VAT number.")
@@ -84,7 +84,7 @@ final class ValidationServiceTests: XCTestCase {
             return (HTTPURLResponse(), data)
         }
         
-        let vatNumber = VatNumberKit.VatNumber(country: .greatBritain, number: "307477591")!
+        let vatNumber = VatNumberKit.VatNumber(rawVatNumber: "GB307477591")!
         
         mockService = VatNumberKit.ValidationService(urlSession: urlSession)
         let expectation = XCTestExpectation(description: "I expect the United Kingdom validation service to return an valid result for a valid VAT number.")
@@ -111,7 +111,7 @@ final class ValidationServiceTests: XCTestCase {
             return (response, data)
         }
         
-        let vatNumber = VatNumberKit.VatNumber(country: .greatBritain, number: "307477591")!
+        let vatNumber = VatNumberKit.VatNumber(rawVatNumber: "GB307477591")!
         
         mockService = VatNumberKit.ValidationService(urlSession: urlSession)
         let expectation = XCTestExpectation(description: "I expect the United Kingdom validation service to return an invalid result for a VAT number which has not company registered.")
