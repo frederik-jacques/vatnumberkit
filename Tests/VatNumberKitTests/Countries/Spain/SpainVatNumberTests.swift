@@ -21,41 +21,41 @@ final class SpainVatNumberTests: XCTestCase {
     func testValidSpanishVatNumberWith8DigitsAndCharacterAsSuffix() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .spain, number: "12345678A")
+        let sut = VatNumberKit.validateFormat(country: .spain, number: "12345678A")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidSpanishVatNumberWithCharacterAtStart7DigitsAndCharacterAsSuffix() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .spain, number: "A1234567A")
+        let sut = VatNumberKit.validateFormat(country: .spain, number: "A1234567A")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testValidSpanishVatNumberWithCharacterAtStartAnd8Digits() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .spain, number: "A12345678")
+        let sut = VatNumberKit.validateFormat(country: .spain, number: "A12345678")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidSpanishVatNumberWithNotEnoughDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .spain, number: "1234567")
+        let sut = VatNumberKit.validateFormat(country: .spain, number: "1234567")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidSpanishVatNumberWithTooManyDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .spain, number: "123456789")
+        let sut = VatNumberKit.validateFormat(country: .spain, number: "123456789")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
 }

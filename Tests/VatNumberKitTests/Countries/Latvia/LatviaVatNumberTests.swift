@@ -21,25 +21,25 @@ final class LatviaVatNumberTests: XCTestCase {
     func testValidLatvianVatNumber() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .latvia, number: "12345678901")
+        let sut = VatNumberKit.validateFormat(country: .latvia, number: "12345678901")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
     func testInvalidLatvianVatNumberWithNotEnoughDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .latvia, number: "1234567890")
+        let sut = VatNumberKit.validateFormat(country: .latvia, number: "1234567890")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
     func testInvalidLatvianVatNumberWithTooManyDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .latvia, number: "123456789012")
+        let sut = VatNumberKit.validateFormat(country: .latvia, number: "123456789012")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
 }

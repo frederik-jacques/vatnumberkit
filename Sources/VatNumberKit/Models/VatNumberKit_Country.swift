@@ -9,7 +9,7 @@ import Foundation
 
 public extension VatNumberKit {
     
-    enum Country: String, CaseIterable {
+    enum Country: String, CaseIterable, Hashable {
         
         case austria = "AT"
         case belgium = "BE"
@@ -66,7 +66,9 @@ public extension VatNumberKit {
                 // - BE123456789
                 // - BE0123456789
             case .belgium:
-                return ["(BE)(\\d{10})"]
+                return [
+                    "(BE)\\s?(0?\\d{3}).?(\\d{3}).?(0?\\d{3})",
+                ]
                 
             case .bulgaria:
                 // 'BG' + 9–10 digits
@@ -87,8 +89,20 @@ public extension VatNumberKit {
                 
             case .czechRepublic:
                 // 'CZ' + 8-10 digits
+                // 2 types:
+                //  - Business: 8 digits
+                //  - Individuals:
+                //      * 9 digits
+                //      * 9 digits (special case), starts with 6
+                //      * 10 digits
+                
                 // Example: CZ123456789
-                return ["(CZ)(\\d){8,10}"]
+                return [
+                    "(CZ)\\d{8}",
+                    "(CZ)[0-5][0-9][0|1|5|6][0-9][0-3][0-9]\\d{3}",
+                    "(CZ)6\\d{8}",
+                    "(CZ)\\d{2}[0-3|5-8][0-9][0-3][0-9]\\d{4}"
+                ]
                 
             case .denmark:
                 // 'DK' + 8 digits
@@ -102,7 +116,7 @@ public extension VatNumberKit {
                 
             case .europeanEntity:
                 // 'EU' + 9 digits
-                // Example: SE123456789111
+                // Example: EU123456789
                 return ["(EU)(\\d){9}"]
                 
             case .finland:
@@ -122,10 +136,23 @@ public extension VatNumberKit {
                 
             case .greatBritain:
                 // 'GB' + 9 or 12 digits
+                // GB has 4 different VAT formats:
+                // - 1: Standard: 9 digits
+                // - 2: Branches: 12 digits
+                // - 3: Goverment: GD + 3 digits
+                // - 3: Health Authority: HA + 3 digits
+                //
                 // Examples:
                 // - GB123456789
                 // - GB123456789012
-                return ["(GB)(\\d{9}(\\d{3})?)"]
+                // - GBGD001
+                // - GBHA500
+                return [
+                    "(GB)(\\d{9})",
+                    "(GB)(\\d{12})",
+                    "(GB)(GD\\d{3})",
+                    "(GB)(HA\\d{3})"
+                ]
                 
             case .greece:
                 // 'EL or GR' + 9 digits
@@ -144,10 +171,12 @@ public extension VatNumberKit {
                 // - IE1234567X
                 // - IE1X23456X
                 // - IE1234567XX
+                // - IE1234567XX
+
                 return [
-                    "(IE)(\\d{7}[A-Z]{1})",
-                    "(IE)(\\d{1}[A-Z]{1}\\d{5})[A-Z]{1}",
-                    "(IE)(\\d{7})[A-Z]{2}"
+                    "(IE)(\\d{7}[A-W]{1})",
+                    "(IE)([7-9][A-Z\\*\\+)]\\d{5}[A-W])",
+                    "(IE)(\\d{7})[A-W][AH]"
                 ]
                 
             case .italy:
@@ -183,7 +212,11 @@ public extension VatNumberKit {
             case .northernIreland:
                 // 'XI' + 9 digits (introduced after Brexit)
                 // Example: XI123456789
-                return ["(XI)\\d{9}"]
+                return ["(XI)(\\d{9})",
+                        "(XI)(\\d{12})",
+                        "(XI)(GD\\d{3})",
+                        "(XI)(HA\\d{3})"
+                ]
                 
             case .poland:
                 // 'PL' + 10 digits
@@ -212,11 +245,17 @@ public extension VatNumberKit {
                 
             case .spain:
                 // 'ES' + 1 digit or letter + 7 digits + 1 digit or letter
+                // Spain has 4 different VAT formats:
+                // - 1: National juridical entities
+                // - 2: Other juridical entities
+                // - 3: Personal entities, type 1
+                // - 4: Personal entities, type 2
                 // Example: ESX12345678, ES12345678X, ESX1234567X
                 return [
                     "(ES)([A-Z]\\d{8})",
-                    "(ES)(\\d{8}[A-Z])",
-                    "(ES)[A-Z](\\d{7}[A-Z])"
+                    "(ES)([A-HN-SW]\\d{7}[A-J])",
+                    "(ES)([0-9YZ]\\d{7}[A-Z])",
+                    "(ES)([KLMX]\\d{7}[A-Z])"
                 ]
                 
             case .sweden:

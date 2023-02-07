@@ -9,12 +9,15 @@ import Foundation
 
 public extension VatNumberKit {
     
-    struct ValidationOutput {
+    struct ValidationOutput: Hashable {
         
-        /// The VAT number (contains country code information)
-        public let vatNumber: VatNumber
+        /// The original VAT number that was submitted
+        public let rawVatNumber: String?
         
-        /// Is the format valid
+        /// The VAT number, separated by country & number (contains country code information)
+        public let vatNumber: VatNumber?
+        
+        /// Is it a valid VAT number (regex or checksum check)
         public let isValid: Bool
         
     }

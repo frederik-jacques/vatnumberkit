@@ -9,24 +9,77 @@ import Foundation
 
 public struct VatNumberKit {
     
-    /// Parse a given VAT number and check if the format is correct.
-    /// - Parameter vatNumber: The raw VAT number (spaces, special characters included)
-    /// - Returns: A validation object, nil if VAT number was empty, nil or has an invalid country code.
-    public static func parse(vatNumber: String?) -> ValidationOutput? {
-        guard let vatNumber = VatNumber(vatNumber: vatNumber) else { return nil }
-           
-        return check(vatNumber: vatNumber)
+    /// Parse a raw VAT number and check if the format is correct (offline, regex based).
+    /// - Parameters:
+    ///   - text: Text to look for VAT numbers
+    ///   - applyChecksumValidation: If a VAT number has been found with a correct format, you can additionally also check the checksum
+    /// - Returns: A set of `ValidationOutput` structs
+    public static func searchVatNumbersInText(_ text: String?, applyChecksumValidation: Bool = true) -> Set<ValidationOutput> {
+        guard let text else { return [] }
+        
+        var outputs: Set<ValidationOutput> = []
+        
+        for country in Country.allCases {
+            for pattern in country.regexPatterns {
+                do {
+                    let regex = try NSRegularExpression(pattern: pattern)
+                    let range = NSRange(location: 0, length: text.utf16.count)
+                    
+                    let matches: [ValidationOutput] = regex.matches(in: text, range: range).compactMap { checkingResult -> ValidationOutput? in
+                        let possibleVatNumber = text[checkingResult.range]
+                        
+                        // First validate the format
+                        let output:ValidationOutput = validateFormat(rawVatNumber: possibleVatNumber)
+                        
+                        // If the output is not valid, skip it
+                        guard output.isValid else { return nil }
+                        
+                        // Apply checksum validation if needed.
+                        if applyChecksumValidation, validateChecksum(rawVatNumber: possibleVatNumber) == false {
+                            return nil
+                        }
+                                                
+                        return output
+                    }
+                    
+                    outputs.formUnion(matches)
+                }
+                catch {
+                    continue
+                }
+            }
+        }
+        
+        return outputs
     }
     
-    /// Check if the VAT number has a valid format
+    /// Parse a raw VAT number and check if the format is correct (offline, regex based).
+    /// - Parameter vatNumber: The raw VAT number (spaces, special characters will be removed)
+    /// - Returns: A validation object.
+    public static func validateFormat(rawVatNumber: String?) -> ValidationOutput {
+        guard let vatNumber = VatNumber(rawVatNumber: rawVatNumber) else { return ValidationOutput(rawVatNumber: rawVatNumber, vatNumber: nil, isValid: false) }
+        return validateFormat(rawVatNumber: rawVatNumber, vatNumber: vatNumber)
+    }
+    
+    /// Parse a VAT number of a given country and check if the format is correct (offline, regex based).
     /// - Parameters:
-    ///   - country: The country for which to check the format
-    ///   - number: The VAT number
-    /// - Returns: A validation object, nil if VAT number was empty or nil
-    public static func parse(country: Country, number: String?) -> ValidationOutput? {
-        guard let vatNumber = VatNumber(country: country, number: number) else { return nil }
+    ///   - country: The country to check the format for
+    ///   - number: The number part of the VAT number (spaces, special characters will be removed)
+    /// - Returns: A validation object, nil if VAT number was empty, nil or has an invalid country code.
+    public static func validateFormat(country: Country, number: String?) -> ValidationOutput {
+        guard let number else { return ValidationOutput(rawVatNumber: nil, vatNumber: nil, isValid: false) }
         
-        return check(vatNumber: vatNumber)
+        let rawVatNumber = "\(country.rawValue)\(number)"
+        
+        guard let vatNumber = VatNumber(rawVatNumber: rawVatNumber) else { return ValidationOutput(rawVatNumber: nil, vatNumber: nil, isValid: false) }
+        return validateFormat(rawVatNumber: vatNumber.fullVatNumber, vatNumber: vatNumber)
+    }
+    
+    /// Validate the checksum of a VAT number (offline)
+    /// - Parameter rawVatNumber: The raw VAT number  (spaces, special characters will be removed)
+    /// - Returns: A boolean indicating if the checksum for the given VAT number is valid
+    public static func validateChecksum(rawVatNumber: String?) -> Bool {
+        return ChecksumValidator.validate(rawVatNumber: rawVatNumber)
     }
     
     /// Validate a VAT number against an online service.
@@ -36,7 +89,7 @@ public struct VatNumberKit {
     ///   - vatNumber: A raw VAT number
     ///   - completionHandler: Callback
     public static func validateOnline(vatNumber: String?, completionHandler: @escaping ((Result<ValidationServiceOutput, Error>) -> Void)) {
-        guard let vatNumber = VatNumber(vatNumber: vatNumber) else {
+        guard let vatNumber = VatNumber(rawVatNumber: vatNumber) else {
             completionHandler(.success(ValidationServiceOutput(isValid: false, validationMessages: [.vatNumberIsNilOrEmpty], metaData: nil)))
             return
         }
@@ -45,14 +98,17 @@ public struct VatNumberKit {
         validationService.validate(vatNumber: vatNumber, completionHandler: completionHandler)
     }
     
-    private static func check(vatNumber: VatNumber) -> ValidationOutput? {
+    private static func validateFormat(rawVatNumber: String?, vatNumber: VatNumber) -> ValidationOutput {
         for regex in vatNumber.country.regexPatterns {
+            
+            let pattern = "\\b\(regex)\\b"
+            
             if #available(macOS 13.0, *), #available(iOS 16.0, *) {
                 do {
-                    let regex = try Regex("\\b\(regex)\\b")
+                    let regex = try Regex(pattern)
                     
                     if vatNumber.fullVatNumber.firstMatch(of: regex) != nil {
-                        return ValidationOutput(vatNumber: vatNumber, isValid: true)
+                        return ValidationOutput(rawVatNumber: rawVatNumber, vatNumber: vatNumber, isValid: true)
                     }
                     else {
                         continue
@@ -65,14 +121,14 @@ public struct VatNumberKit {
             }
             else {
                 do {
-                    let regex = try NSRegularExpression(pattern: "\\b\(regex)\\b")
+                    let regex = try NSRegularExpression(pattern: pattern)
                     let range = NSRange(location: 0, length: vatNumber.fullVatNumber.utf16.count)
 
                     guard regex.firstMatch(in: vatNumber.fullVatNumber, range: range) != nil else {
                         continue
                     }
 
-                    return ValidationOutput(vatNumber: vatNumber, isValid: true)
+                    return ValidationOutput(rawVatNumber: rawVatNumber, vatNumber: vatNumber, isValid: true)
                 }
                 catch {
                     assertionFailure("Regex resolve failed. This should never happen.")
@@ -81,7 +137,7 @@ public struct VatNumberKit {
             }
         }
         
-        return ValidationOutput(vatNumber: vatNumber, isValid: false)
+        return ValidationOutput(rawVatNumber: rawVatNumber, vatNumber: vatNumber, isValid: false)
     }
     
 }

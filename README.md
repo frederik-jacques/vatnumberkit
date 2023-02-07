@@ -2,9 +2,10 @@
 <img src="https://getbillie.app/wp-content/uploads/vatnumberkit_logo.png" width="400px" height="537px" alt="VatNumberKit Logo" />
 </p>
 
-VatNumberKit is a library to parse & validate VAT numbers on both iOS and macOS.
+VatNumberKit is a Swift library to check and validate VAT numbers (checksum based & online government services) on both iOS and macOS.
 
-[![Platform](https://img.shields.io/badge/platform-ios%20%7C%20osx-green)](https://github.com/frederik-jacques/vatnumberkit)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffrederik-jacques%2Fvatnumberkit%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/frederik-jacques/vatnumberkit)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffrederik-jacques%2Fvatnumberkit%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/frederik-jacques/vatnumberkit)
 
 ## Contents
 
@@ -54,13 +55,13 @@ If you prefer not to use Swift Package Manager, you can integrate VatNumberKit i
 
 ### Validate the VAT number format
 
-Use the static method `VatNumberKit.parse(vatNumber:)` to check if the VAT number format is valid.
+Use the static method `VatNumberKit.validateFormat(vatNumber:)` to check if the VAT number format (based on regexes) is valid.
 
 The result of this call returns a `VatNumberKit.ValidationOutput` object which has the following properties.
 
-* vatNumber: A `VatNumber` object (with country information)
-* isValid: Is the format valid
-
+* `rawVatNumber`: The original VAT number
+* `vatNumber`: A `VatNumber` object (country & number seperated)
+* `isValid`: Is the format valid
 
 #### Example
 
@@ -72,8 +73,33 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let validationOutput = VatNumberKit.parse(vatNumber: "BE0651634023"), validationOutput.isValid {
+        if let validationOutput = VatNumberKit.validateFormat(vatNumber: "BE0651634023"), validationOutput.isValid {
             print("The VAT number has a valid format")
+        }
+        
+    }
+}
+
+```
+
+### Validate the VAT checksum
+
+Use the static method `VatNumberKit.validateChecksum(rawVatNumber:)` to check if the checksum for the given VAT number is valid.
+
+The result of this call returns a `Boolean`, indicating if the checksum is correct.
+
+#### Example
+
+```swift
+import VatNumberKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if VatNumberKit.validateChecksum(rawVatNumber: "BE0651634023"){
+            print("The VAT number has a valid checksum")
         }
         
     }
@@ -136,46 +162,75 @@ VatNumberKit.validateOnline(vatNumber: "GB835145337") { result in
     }
 ```
 
+### Search VAT numbers within a string
+
+Use the static method `VatNumberKit.searchVatNumbersInText(:applyChecksumValidation:)` to find VAT numbers in a text.
+
+This method returns a Set of `VatNumberKit.ValidationOutput` structs.
+
+#### Example
+
+```swift
+import VatNumberKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let validationObjects = VatNumberKit.searchVatNumbersInText(text: "This is a VAT number that is BE0651634023 somewhere in the text. \n Apple's Belgian VAT number is BE0842936235")
+        // Will contain 2 VatNumberKit.ValidationOutput structs.
+        
+    }
+}
+
+```
+
 ## Supported Countries
 
-| Country          	| Offline format validation 	| Online validation 	|
-|------------------	|---------------------------	|-------------------	|
-| Austria          	| ✅                         	| ✅                 	|
-| Belgium          	| ✅                         	| ✅                 	|
-| Bulgaria         	| ✅                         	| ✅                 	|
-| Croatia          	| ✅                         	| ✅                 	|
-| Cyprus           	| ✅                         	| ✅                 	|
-| Czech Republic   	| ✅                         	| ✅                 	|
-| Denmark          	| ✅                         	| ✅                 	|
-| Estonia          	| ✅                         	| ✅                 	|
-| European Entity  	| ✅                         	| ✅                 	|
-| Finland          	| ✅                         	| ✅                 	|
-| France           	| ✅                         	| ✅                 	|
-| Germany          	| ✅                         	| ✅                 	|
-| Great Britain    	| ✅                         	| ✅                 	|
-| Greece           	| ✅                         	| ✅                 	|
-| Hungary          	| ✅                         	| ✅                 	|
-| Ireland          	| ✅                         	| ✅                 	|
-| Italy            	| ✅                         	| ✅                 	|
-| Latvia           	| ✅                         	| ✅                 	|
-| Lithuania        	| ✅                         	| ✅                 	|
-| Luxembourg       	| ✅                         	| ✅                 	|
-| Malta            	| ✅                         	| ✅                 	|
-| The Netherlands  	| ✅                         	| ✅                 	|
-| Northern Ireland 	| ✅                         	| ✅                 	|
-| Poland           	| ✅                         	| ✅                 	|
-| Portugal         	| ✅                         	| ✅                 	|
-| Romania          	| ✅                         	| ✅                 	|
-| Slovakia         	| ✅                         	| ✅                 	|
-| Slovenia         	| ✅                         	| ✅                 	|
-| Spain            	| ✅                         	| ✅                 	|
-| Sweden           	| ✅                         	| ✅                 	|
+| Country          	| Offline format validation (regex) 	| Offline checksum validation 	| Online validation 	|
+|------------------	|-----------------------------------	|-----------------------------	|-------------------	|
+| Austria          	| ✅                                 	| ✅                           	| ✅                 	|
+| Belgium          	| ✅                                 	| ✅                           	| ✅                 	|
+| Bulgaria         	| ✅                                 	| ✅                           	| ✅                 	|
+| Croatia          	| ✅                                 	| ✅                           	| ✅                 	|
+| Cyprus           	| ✅                                 	| ✅                           	| ✅                 	|
+| Czech Republic   	| ✅                                 	| ✅                           	| ✅                 	|
+| Denmark          	| ✅                                 	| ✅                           	| ✅                 	|
+| Estonia          	| ✅                                 	| ✅                           	| ✅                 	|
+| European Entity  	| ✅                                 	| ✅                           	| ✅                 	|
+| Finland          	| ✅                                 	| ✅                           	| ✅                 	|
+| France           	| ✅                                 	| ✅                           	| ✅                 	|
+| Germany          	| ✅                                 	| ✅                           	| ✅                 	|
+| Great Britain    	| ✅                                 	| ✅                           	| ✅                 	|
+| Greece           	| ✅                                 	| ✅                           	| ✅                 	|
+| Hungary          	| ✅                                 	| ✅                           	| ✅                 	|
+| Ireland          	| ✅                                 	| ✅                           	| ✅                 	|
+| Italy            	| ✅                                 	| ✅                           	| ✅                 	|
+| Latvia           	| ✅                                 	| ✅                           	| ✅                 	|
+| Lithuania        	| ✅                                 	| ✅                           	| ✅                 	|
+| Luxembourg       	| ✅                                 	| ✅                           	| ✅                 	|
+| Malta            	| ✅                                 	| ✅                           	| ✅                 	|
+| The Netherlands  	| ✅                                 	| ✅                           	| ✅                 	|
+| Northern Ireland 	| ✅                                 	| ✅                           	| ✅                 	|
+| Poland           	| ✅                                 	| ✅                           	| ✅                 	|
+| Portugal         	| ✅                                 	| ✅                           	| ✅                 	|
+| Romania          	| ✅                                 	| ✅                           	| ✅                 	|
+| Slovakia         	| ✅                                 	| ✅                           	| ✅                 	|
+| Slovenia         	| ✅                                 	| ✅                           	| ✅                 	|
+| Spain            	| ✅                                 	| ✅                           	| ✅                 	|
+| Sweden           	| ✅                                 	| ✅                           	| ✅                 	|
 
 Feel free to open a PR to add other countries!
 
 ## Credits
 
 - Frederik Jacques ([@thenerd_be](https://twitter.com/thenerd_be))
+
+Sources used to find more information about the checksums, as every country seems to have forgotten to document how it is being calculated :)
+- https://github.com/DragonBe/vies
+- https://gist.github.com/svschannak/e79892f4fbc56df15bdb5496d0e67b85
+- https://github.com/arthurdejong/python-stdnum
 
 
 ## License

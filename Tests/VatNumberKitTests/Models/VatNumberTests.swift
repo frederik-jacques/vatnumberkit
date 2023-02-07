@@ -19,17 +19,17 @@ final class VatNumberTests: XCTestCase {
     }
 
     func testCreateVatNumberWithNilValueReturnsNil() throws {
-        let sut = VatNumberKit.VatNumber(vatNumber: nil)
+        let sut = VatNumberKit.VatNumber(rawVatNumber: nil)
         XCTAssertNil(sut)
     }
     
     func testCreateVatNumberWithEmptyStringReturnsNil() throws {
-        let sut = VatNumberKit.VatNumber(vatNumber: "")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "")
         XCTAssertNil(sut)
     }
     
     func testCreateVatNumberWithStringWithOnlySpacesReturnsNil() throws {
-        let sut = VatNumberKit.VatNumber(vatNumber: "        ")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "        ")
         XCTAssertNil(sut)
     }
     
@@ -37,7 +37,7 @@ final class VatNumberTests: XCTestCase {
         let expectedCountry: VatNumberKit.Country = .belgium
         let expectedNumber = "0651634023"
         
-        let sut = VatNumberKit.VatNumber(vatNumber: "BE0651634023")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "BE0651634023")
         
         XCTAssertEqual(sut?.country, expectedCountry)
         XCTAssertEqual(sut?.number, expectedNumber)
@@ -47,14 +47,14 @@ final class VatNumberTests: XCTestCase {
         let expectedCountry: VatNumberKit.Country = .belgium
         let expectedNumber = "0651634023"
         
-        let sut = VatNumberKit.VatNumber(vatNumber: "BE651634023")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "BE651634023")
         
         XCTAssertEqual(sut?.country, expectedCountry)
         XCTAssertEqual(sut?.number, expectedNumber)
     }
     
     func testCreateVatNumberWithInvalidCountryCodeReturnsNil() throws {
-        let sut = VatNumberKit.VatNumber(vatNumber: "XX651634023")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "XX651634023")
     
         XCTAssertNil(sut)
     }
@@ -63,7 +63,7 @@ final class VatNumberTests: XCTestCase {
         let expectedCountry: VatNumberKit.Country = .belgium
         let expectedNumber = "0651634023"
         
-        let sut = VatNumberKit.VatNumber(vatNumber: "BE 651.634.023")
+        let sut = VatNumberKit.VatNumber(rawVatNumber: "BE 651.634.023")
         
         XCTAssertEqual(sut?.country, expectedCountry)
         XCTAssertEqual(sut?.number, expectedNumber)

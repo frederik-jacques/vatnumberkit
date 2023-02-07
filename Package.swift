@@ -28,7 +28,7 @@ let package = Package(
         .testTarget(
             name: "VatNumberKitTests",
             dependencies: ["VatNumberKit"],
-            exclude: ["Services/Mocks/"]
+            exclude: ["Validators/Online/Services/Mocks/"]
         ),
     ],
     swiftLanguageVersions: [.v5]

@@ -21,17 +21,17 @@ final class CyprusVatNumberTests: XCTestCase {
     func testValidCyprianVatNumber() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .cyprus, number: "12345678X")
+        let sut = VatNumberKit.validateFormat(country: .cyprus, number: "12345678X")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
 
     func testInvalidCyprianVatNumber() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .cyprus, number: "123456781")
+        let sut = VatNumberKit.validateFormat(country: .cyprus, number: "123456781")
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut?.isValid, expectedValidationResult)
+        XCTAssertEqual(sut.isValid, expectedValidationResult)
     }
     
 }
