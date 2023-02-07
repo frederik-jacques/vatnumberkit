@@ -21,7 +21,7 @@ final class AustriaVatNumberTests: XCTestCase {
     func testValidAustrianVatNumber() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .austria, number: "U12345678")
+        let sut = VatNumberKit.validateFormat(country: .austria, number: "U12345678")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)        
     }
@@ -29,7 +29,7 @@ final class AustriaVatNumberTests: XCTestCase {
     func testInvalidAustrianVatNumberWithMissingU() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .austria, number: "12345678")
+        let sut = VatNumberKit.validateFormat(country: .austria, number: "12345678")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -37,7 +37,7 @@ final class AustriaVatNumberTests: XCTestCase {
     func testInvalidAustrianVatNumberWithTooMuchNumbers() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .austria, number: "123456789")
+        let sut = VatNumberKit.validateFormat(country: .austria, number: "123456789")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }

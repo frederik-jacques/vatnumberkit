@@ -54,7 +54,7 @@ If you prefer not to use Swift Package Manager, you can integrate VatNumberKit i
 
 ### Validate the VAT number format
 
-Use the static method `VatNumberKit.parse(vatNumber:)` to check if the VAT number format is valid.
+Use the static method `VatNumberKit.validateFormat(vatNumber:)` to check if the VAT number format is valid.
 
 The result of this call returns a `VatNumberKit.ValidationOutput` object which has the following properties.
 
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let validationOutput = VatNumberKit.parse(vatNumber: "BE0651634023"), validationOutput.isValid {
+        if let validationOutput = VatNumberKit.validateFormat(vatNumber: "BE0651634023"), validationOutput.isValid {
             print("The VAT number has a valid format")
         }
         

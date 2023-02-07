@@ -9,7 +9,7 @@ import Foundation
 
 public extension VatNumberKit {
     
-    struct VatNumber {
+    struct VatNumber: Equatable {
         /// The country part of  the VAT number
         public let country: Country
         
@@ -29,8 +29,7 @@ public extension VatNumberKit {
             self.country = country
             self.number = number
         }
-        
-        
+                
         /// Create a VatNumber instance based on a raw Vat number string.
         /// - Parameter vatNumber: A raw VAT number
         init?(vatNumber: String?) {

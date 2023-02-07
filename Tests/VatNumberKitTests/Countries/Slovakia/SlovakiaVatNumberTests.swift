@@ -21,7 +21,7 @@ final class SlovakiaVatNumberTests: XCTestCase {
     func testValidSlovakianVatNumber() throws {
         let expectedValidationResult = true
 
-        let sut = VatNumberKit.parse(country: .slovakia, number: "1234567890")
+        let sut = VatNumberKit.validateFormat(country: .slovakia, number: "1234567890")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -29,7 +29,7 @@ final class SlovakiaVatNumberTests: XCTestCase {
     func testInvalidSlovakianVatNumberWithNotEnoughDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .slovakia, number: "123456789")
+        let sut = VatNumberKit.validateFormat(country: .slovakia, number: "123456789")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -37,7 +37,7 @@ final class SlovakiaVatNumberTests: XCTestCase {
     func testInvalidSlovakianVatNumberWithTooManyDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .slovakia, number: "12345678901")
+        let sut = VatNumberKit.validateFormat(country: .slovakia, number: "12345678901")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }

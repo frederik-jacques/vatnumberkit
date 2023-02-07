@@ -21,7 +21,7 @@ final class EuropeanEntityVatNumberTests: XCTestCase {
     func testValidEuropeanEntityVatNumber() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .europeanEntity, number: "123456789")
+        let sut = VatNumberKit.validateFormat(country: .europeanEntity, number: "123456789")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -29,7 +29,7 @@ final class EuropeanEntityVatNumberTests: XCTestCase {
     func testInvalidEuropeanEntityVatNumberWithNotEnoughDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .europeanEntity, number: "12345678")
+        let sut = VatNumberKit.validateFormat(country: .europeanEntity, number: "12345678")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -37,7 +37,7 @@ final class EuropeanEntityVatNumberTests: XCTestCase {
     func testInvalidEuropeanEntityVatNumberWithTooManyDigits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .europeanEntity, number: "1234567890")
+        let sut = VatNumberKit.validateFormat(country: .europeanEntity, number: "1234567890")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }

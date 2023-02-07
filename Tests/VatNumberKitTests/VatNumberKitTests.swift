@@ -3,27 +3,27 @@ import XCTest
 
 final class VatNumberKitTests: XCTestCase {
     
-    func testParseReturnsNilIfVatNumberParameterIsNil() throws {
-        let sut = VatNumberKit.parse(vatNumber: nil)
+    func testParseReturnsNilIfVatNumberParameterIsNil() throws {        
+        let sut = VatNumberKit.validateFormat(vatNumber: nil)
         XCTAssertNil(sut)
     }
     
     func testParseReturnsNilIfVatNumberParameterIsEmpty() throws {
-        let sut = VatNumberKit.parse(vatNumber: "")
+        let sut = VatNumberKit.validateFormat(vatNumber: "")
         XCTAssertNil(sut)
     }
     
     func testParseReturnsValidResultIfVatNumberIsValid() throws {
         let expectedResult = true
         
-        let sut = VatNumberKit.parse(vatNumber: "BE0651634023")
+        let sut = VatNumberKit.validateFormat(vatNumber: "BE0651634023")
         XCTAssertEqual(sut?.isValid, expectedResult)
     }
     
     func testParseReturnsInvalidResultIfVatNumberIsInvalid() throws {
         let expectedResult = false
         
-        let sut = VatNumberKit.parse(vatNumber: "BE0651634023A")
+        let sut = VatNumberKit.validateFormat(vatNumber: "BE0651634023A")
         XCTAssertEqual(sut?.isValid, expectedResult)
     }
     

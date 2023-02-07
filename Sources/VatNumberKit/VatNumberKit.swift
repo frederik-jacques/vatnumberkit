@@ -9,24 +9,31 @@ import Foundation
 
 public struct VatNumberKit {
     
-    /// Parse a given VAT number and check if the format is correct.
-    /// - Parameter vatNumber: The raw VAT number (spaces, special characters included)
+    /// Parse a raw VAT number and check if the format is correct (offline, regex based).
+    /// - Parameter vatNumber: The raw VAT number (spaces, special characters will be removed)
     /// - Returns: A validation object, nil if VAT number was empty, nil or has an invalid country code.
-    public static func parse(vatNumber: String?) -> ValidationOutput? {
+    public static func validateFormat(vatNumber: String?) -> ValidationOutput? {
         guard let vatNumber = VatNumber(vatNumber: vatNumber) else { return nil }
            
-        return check(vatNumber: vatNumber)
+        return validateFormat(vatNumber: vatNumber)
     }
     
-    /// Check if the VAT number has a valid format
+    /// Parse a VAT number of a given country and check if the format is correct (offline, regex based).
     /// - Parameters:
-    ///   - country: The country for which to check the format
-    ///   - number: The VAT number
-    /// - Returns: A validation object, nil if VAT number was empty or nil
-    public static func parse(country: Country, number: String?) -> ValidationOutput? {
+    ///   - country: The country to check the format for
+    ///   - number: The number part of the VAT number (spaces, special characters will be removed)
+    /// - Returns: A validation object, nil if VAT number was empty, nil or has an invalid country code.
+    public static func validateFormat(country: Country, number: String?) -> ValidationOutput? {
         guard let vatNumber = VatNumber(country: country, number: number) else { return nil }
         
-        return check(vatNumber: vatNumber)
+        return validateFormat(vatNumber: vatNumber)
+    }
+    
+    /// Validate the checksum of a VAT number (offline)
+    /// - Parameter vatNumber: The raw VAT number  (spaces, special characters will be removed)
+    /// - Returns: A boolean indicating if the checksum for the given VAT number is valid
+    public static func validateChecksum(vatNumber: String?) -> Bool {                
+        return ChecksumValidator.validate(rawVatNumber: vatNumber)
     }
     
     /// Validate a VAT number against an online service.
@@ -45,7 +52,7 @@ public struct VatNumberKit {
         validationService.validate(vatNumber: vatNumber, completionHandler: completionHandler)
     }
     
-    private static func check(vatNumber: VatNumber) -> ValidationOutput? {
+    private static func validateFormat(vatNumber: VatNumber) -> ValidationOutput? {
         for regex in vatNumber.country.regexPatterns {
             if #available(macOS 13.0, *), #available(iOS 16.0, *) {
                 do {

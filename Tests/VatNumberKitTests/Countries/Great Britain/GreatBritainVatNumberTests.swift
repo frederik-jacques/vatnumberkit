@@ -21,7 +21,7 @@ final class GreatBritainVatNumberTests: XCTestCase {
     func testValidGreatBritishVatNumberWith9Digits() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .greatBritain, number: "123456789")
+        let sut = VatNumberKit.validateFormat(country: .greatBritain, number: "123456789")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -29,7 +29,7 @@ final class GreatBritainVatNumberTests: XCTestCase {
     func testValidGreatBritishVatNumberWith12Digits() throws {
         let expectedValidationResult = true
         
-        let sut = VatNumberKit.parse(country: .greatBritain, number: "123456789012")
+        let sut = VatNumberKit.validateFormat(country: .greatBritain, number: "123456789012")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -37,7 +37,7 @@ final class GreatBritainVatNumberTests: XCTestCase {
     func testInvalidGreatBritishVatNumberWith10Digits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .greatBritain, number: "1234567890")
+        let sut = VatNumberKit.validateFormat(country: .greatBritain, number: "1234567890")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
@@ -45,7 +45,7 @@ final class GreatBritainVatNumberTests: XCTestCase {
     func testInvalidGreatBritishVatNumberWith11Digits() throws {
         let expectedValidationResult = false
         
-        let sut = VatNumberKit.parse(country: .greatBritain, number: "12345678901")
+        let sut = VatNumberKit.validateFormat(country: .greatBritain, number: "12345678901")
         XCTAssertNotNil(sut)
         XCTAssertEqual(sut?.isValid, expectedValidationResult)
     }
